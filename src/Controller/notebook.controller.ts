@@ -104,3 +104,33 @@ export const updateNote = async(req:Request, res: Response)=>{
         return res.json({error})
     }
 }
+
+export const deleteNote = async(req: Request, res: Response)=>{
+    try {
+        const id = req.params.id
+
+        const pool = await mssql.connect(sqlConfig)
+
+        let result = (await pool.request()
+        .input("user_id", mssql.VarChar, id)
+        .execute('deleteNote')
+        ).rowsAffected
+
+        console.log(result[0]);
+        
+        if(result[0] == 0){
+            return res.status(201).json({
+                error: "Note not found"
+            })
+        }else{
+            return res.status(200).json({
+                message: "Note deleted successfully"
+            })
+        }
+
+        
+       
+    } catch (error) {
+        return res.json({error})
+    }
+}
