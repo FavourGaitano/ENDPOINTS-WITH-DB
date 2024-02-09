@@ -58,3 +58,21 @@ export const getNotes =  async(req: Request, res:Response)=>{
         return res.json({error})
     }
 }
+
+export const getOneNote = async(req: Request, res:Response)=>{
+    try {
+        const id = req.params.id
+
+        
+
+        const pool = await mssql.connect(sqlConfig)
+
+        let user = (await pool.request().input("user_id", id).execute('getOneNote')).recordset
+
+        return res.json({
+            user
+        })
+    } catch (error) {
+        return res.json({error})
+    }
+}
