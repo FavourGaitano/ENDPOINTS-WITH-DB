@@ -76,3 +76,31 @@ export const getOneNote = async(req: Request, res:Response)=>{
         return res.json({error})
     }
 }
+
+export const updateNote = async(req:Request, res: Response)=>{
+    try {
+        const id = req.params.id
+
+        const {title, content, created_at}:Notebook = req.body
+
+        const pool = await mssql.connect(sqlConfig)
+
+        let result = (await pool.request()
+        .input('user_id', mssql.VarChar, id)
+        .input('title', mssql.VarChar, title)
+        .input('content', mssql.VarChar, content)
+        .input('created_at', mssql.VarChar, created_at)
+        .execute('updateNote')).rowsAffected
+
+        console.log(result);
+        
+
+        return res.status(200).json({
+            message: "Note updated successfully"
+        })
+
+        
+    } catch (error) {
+        return res.json({error})
+    }
+}
