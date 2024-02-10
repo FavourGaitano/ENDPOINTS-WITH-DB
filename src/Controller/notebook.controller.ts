@@ -7,6 +7,7 @@ import { sqlConfig } from '../config/sql.config';
 
 
 
+
 export const createNote = async(req: Request, res: Response)=>{
     try {
         const id = v4()
@@ -52,7 +53,7 @@ export const getNotes =  async(req: Request, res:Response)=>{
         let allnotes = (await pool.request().execute('getAllNotes')).recordset
 
         return res.status(200).json({
-            notes: allnotes
+            allnotes
         })
     } catch (error) {
         return res.json({error})

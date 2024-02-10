@@ -1,0 +1,15 @@
+### CREATE NOTE
+
+POST http://localhost:3000/notebooks
+Content-Type: application/json
+
+{
+    "title":"Weekend TODO",
+    "content":"This is not a group Project anymore! It's now a solo project , we are relying on you and only you, FINISH THE BACKEND! THE FRONTEND! BETTER THE UI! AND guess what you'll have to INTERGRATE THE TWO BY YOURSELF! Good luck!",
+    "created_at":"09 Feb 2024"
+}
+
+### GETTING ALL NOTES
+
+GET http://localhost:3000/notebooks
+Content-Type: application/json
